@@ -44,7 +44,7 @@ def main():
     #3. Split the data frame into parameters that are to be  predicted or are  given
     predict = data[config["predict_name"]]
     interior_parameters = data.drop(config["predict_name"], axis=1)
-   
+    print(np.ravel(predict.values))
     
 
     #4. Split into train and test samples either randomly or with indices given at input 
@@ -53,8 +53,9 @@ def main():
         print("No test indices specified using random train/test split ")
         
         interior_train, interior_test, predict_train, predict_test = train_test_split(
+        #np.ravel(interior_parameters),
         interior_parameters,
-        predict,
+        np.ravel(predict.values),
         test_size=  0.2,
         random_state= 42,# Stays the same for reproducibility  
         )
@@ -67,6 +68,10 @@ def main():
         predict_test = predict.iloc[test_indices]
         predict_train = predict.drop(index=test_indices)
 
+    print(predict_test)
+    print(interior_test)
+
+
     #5. Make the TabPFN fit 
     reg = TabPFNRegressor()
     reg.fit(interior_train,predict_train)
@@ -77,12 +82,14 @@ def main():
     predictions = []
 
     for i in range(0, len(predict_test), batch_size):
-        batch = interior_train[i:i + batch_size]
+        batch = interior_test[i:i + batch_size]
         preds = reg.predict(batch)
         predictions.append(preds)
     
 
     predictions = np.concatenate(predictions)
+
+    print(predictions)
 
 
 
