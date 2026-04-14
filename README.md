@@ -1,23 +1,23 @@
 # TabPFN forward modelling 
 (Built with PriorLabs-TabPFN)
  
- This repository contains the code necessary to fit the TabPFN model to a part of your training data set and make predictions for the rest of the set. The data used for the fitting are normally the interior parameters of the planet such as core/mantel mass, water mass fraction or Mg to Si mantle mass ratio but can also be extended to more general parameters of the planet such as age or different types of mixing assumptions. 
+ This repository contains the code necessary to fit the TabPFN model to a part of your training data set and make predictions for the rest of the set. The data used for the fitting are normally the interior parameters of the planet such as core/mantle mass, water mass fraction or Mg to Si mantle mass ratio but can also be extended to more general parameters of the planet such as age or different types of mixing assumptions. 
 
- The code also allows for single planet predictions based on the traing data set. This is explained further in section 4.
+ The code also allows for single planet predictions based on the trainig data set. This is explained further in section 4.
 
 
 ---
 ## TabPFN Version  
 
-This work was done with TabPFn V2 as described in [Hollmann et al. 2025 ](https://www.nature.com/articles/s41586-024-08328-6)
+This work was done with TabPFN V2 as described in [Hollmann et al. 2025 ](https://www.nature.com/articles/s41586-024-08328-6)
 
 The standard license for this version can be found [here](https://github.com/PriorLabs/TabPFN/blob/main/LICENSE).
 
 ---
  
-## 1. Installation & start 
+## 1. Installation & Start 
  
-### Prerequisits 
+### Prerequisites 
 - [Git](https://git-scm.com/)
 - [Conda](https://docs.conda.io/en/latest/miniconda.html) (optional)
  
@@ -29,7 +29,7 @@ git clone https://github.com/Elouan003/TabPFN_forward_modelling
 cd TabPFN_forward_modelling 
 ```
  
-**2. Create the python environement**
+**2. Create the Python environement**
 
 *a) Using conda*
 ```bash
@@ -72,42 +72,42 @@ TabPFN_forward_modelling/
         └── your_data.csv   ← here
 ```
  
-The data should be in  `.csv` or `.txt` format . Les columns should include at least the parameters you define in `config.yaml` (see section 3) if there are more columns than what you are using that is fine the programm should ignore them. 
+The data should be in  `.csv` or `.txt` format. The columns should include at least the parameters you define in `config.yaml` (see section 3) if there are more columns than what you are using that is fine the program should ignore them. 
  
-> **Supported fromats :** The script can either work with columns separated by tabs/spaces or by commas, in order to adapt this see the "input_format" parameter in config.yaml (section 3). The names of the columns should be the first line of the data and use the same separators as the rest of the data.
+> **Supported formats :** The script can either work with columns separated by tabs/spaces or by commas, in order to adapt this see the "input_format" parameter in config.yaml (section 3). The names of the columns should be the first line of the data and use the same separators as the rest of the data.
  
-### b) Configurate the code parameters 
+### b) Configure the code parameters 
  
-This is the most important part of these instructions. The `config.yaml` file containes three sets of parameters that need to be adjusted depending on your needs. The different parameters are explained below. 
+This is the most important part of these instructions. The `config.yaml` file contains three sets of parameters that need to be adjusted depending on your needs. The different parameters are explained below. 
 
-You should always set the parameters regarding your data ! Without this the code will not be able to produce any output. Be especially carefull with the names of the columns used as parameters and that are to predict. The programm will warn you if some names you used are not automatically recognized. If that is the case, check the spelling of the parameters as well as the formatting (separator type and so on) of your file. 
+You should always set the parameters regarding your data ! Without this the code will not be able to produce any output. Be especially careful with the names of the columns used as parameters and that are to predict. The program will warn you if some names you used are not automatically recognized. If that is the case, check the spelling of the parameters as well as the formatting (separator type and so on) of your file. 
 
-### Data related parametres
+### Data related parameters
 | Parameter | Type | Description | default value |
 |---|---|---|---|
 | `data_path` | `string` | Name of the file in `data/input/` | None 
 | `input_format` | `string` | Type of separator used in your data file can be `\s+` or `,`| \s+
 | `Param_names` | `list` | Name of the columns that are to be used as parameters | None 
-| `Predict_names` | `list` | Name of the column that is to be predicetd (usually Radius) | None 
+| `Predict_names` | `list` | Name of the column that is to be predicted (usually Radius) | None 
 
 
 
-### Programm related parametres
+### Programm related parameters
 | Parameter | Type | Description |default value |
 |---|---|---|---|
-| `test_indices` | `list [start,end]` | Intervall of lines to be used to test the precision of rhe predictions If nothing is specified, the code will use a random sample with 20% of your data for the testing. The random sample stas the same through different runs for reproducibility| [0,0]
-| `batch_size` | `int` | Number of TabPFN predictions that are run in parallel (default 100). Increasing this number will make the code run faster but if the available memory is not enough it will crash so thread carefully. | 100
-| `random_seed` | `int` | In order to have reprducible outputs the random test points are selected based on a seed. You can change this seed here| 42
+| `test_indices` | `list [start,end]` | Interval of lines to be used to test the precision of the predictions If nothing is specified, the code will use a random sample with 20% of your data for the testing. The random sample stays the same through different runs for reproducibility| [0,0]
+| `batch_size` | `int` | Number of TabPFN predictions that are run in parallel (default 100). Increasing this number will make the code run faster but if the available memory is not enough it will crash so tread carefully. | 100
+| `random_seed` | `int` | In order to have reproducible outputs the random test points are selected based on a seed. You can change this seed here| 42
 
  
 
 
-### Output related parametres
+### Output related parameters
 | Parameter | Type | Description | default value |
 |---|---|---|---|
-| `make_plot` | `bool`    | True if you want to generate the pdf plot everytime False if you only want the csv data | True 
-| `output_csv` | `string` | Name of csv file generated in `output/csv/` | results.csv
-| `output_pdf` | `string` | Name of pdf plot generated in `output/plots/` | results.pdf
+| `make_plot` | `bool`    | True if you want to generate the pdf plot every time False if you only want the csv data | True 
+| `output_csv` | `string` | Name of the csv file generated in `output/csv/` | results.csv
+| `output_pdf` | `string` | Name of the PDF plot generated in `output/plots/` | results.pdf
 ---
  
 
@@ -121,7 +121,7 @@ python run.py
 In the `TabPFN_forward_modelling` folder on your computer. The script will show updates of the progress and signal the more common errors that might occur.
 
 
-Every time you want to run the programm make sure that the virtual environment is activated ! 
+Every time you want to run the program make sure that the virtual environment is activated ! 
 This is done by running the middle line of the procedure explained above.
 
 Using conda 
@@ -151,7 +151,7 @@ The script automatically generates two files in the  `output/` folder :
 | File | Description |
 |---|---|
 | `results.pdf` | Automatically generated plot of the TabPFN predictions against the true values for validation|
-| `results.csv` | csv file with 2 columns : the first one is the true values from your data set and the second one are the corresponding values predicted by TabPFN. This can be used to generate your own plots with the data if the automatic one does not meet your needs.|
+| `results.csv` | csv file with 2 columns : the first one is the true values from your dataset and the second one are the corresponding values predicted by TabPFN. This can be used to generate your own plots with the data if the automatic one does not meet your needs.|
 
  
 
@@ -161,7 +161,7 @@ The script automatically generates two files in the  `output/` folder :
 
 ## 4.  Single planet predictions 
  
-Once the model has been fitted and the plot has been produced the programm will propmt you to choose if you want to make a prediction for a single planet. 
+Once the model has been fitted and the plot has been produced the program will prompt you to choose if you want to make a prediction for a single planet. 
 ```bash
 Do you want to make a single planet prediction ? (y/n) :
 ```
