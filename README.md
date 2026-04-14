@@ -86,7 +86,7 @@ You should always set the parameters regarding your data ! Without this the code
 | Parameter | Type | Description | default value |
 |---|---|---|---|
 | `data_path` | `string` | Name of the file in `data/input/` | None 
-| `input_format` | `string` | Type of separator used in your data file can be `\s+` or `,`| \s+
+| `input_format` | `string` | Type of separator used in your data file can be `\s+` or `,`| ,
 | `Param_names` | `list` | Name of the columns that are to be used as parameters | None 
 | `Predict_names` | `list` | Name of the column that is to be predicted (usually Radius) | None 
 
